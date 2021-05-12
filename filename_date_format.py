@@ -1,3 +1,5 @@
+# Use this code to get today's date in yymmdd format
+
 from time import gmtime, strftime, localtime
 
 # Date

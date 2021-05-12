@@ -12,3 +12,8 @@ fig, ax = plt.subplots()
 lines = ax.plot(data)
 ax.legend(custom_lines, ['Cold', 'Medium', 'Hot'])
 
+
+########## 2. MPL Configs ###############
+
+# mpl config to make sure grid is always behind the plot
+plt.rcParams['axes.axisbelow'] = True

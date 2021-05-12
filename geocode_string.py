@@ -1,4 +1,4 @@
-
+# Use this to get a geocode for a string location - gives you latitude and longitude
 from geopy.geocoders import Nominatim
 
 # Define the function
