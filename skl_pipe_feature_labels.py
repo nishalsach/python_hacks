@@ -51,6 +51,12 @@ transformed_data = combined_pipe.fit_transform(train.drop('y',1), train['y'])
 # Now we write functions to extract column names
 
 def get_feature_out(estimator, feature_in):
+
+    '''
+    Function to get feature names from some type of estimator that's
+    part of the ColumnTransformer Pipeline. 
+    '''
+
     if hasattr(estimator,'get_feature_names'):
         if isinstance(estimator, _VectorizerMixin):
             # handling all vectorizers
@@ -65,9 +71,16 @@ def get_feature_out(estimator, feature_in):
 
 
 def get_ct_feature_names(ct):
-    # handles all estimators, pipelines inside ColumnTransfomer
-    # doesn't work when remainder =='passthrough'
-    # which requires the input column names.
+
+    '''
+    Function to get feature names from pipelines inside a given ColumnTransfomer
+
+    - handles all estimators, pipelines inside ColumnTransfomer
+    - doesn't work when remainder =='passthrough', which requires the input column names.
+
+    '''
+
+
     output_features = []
 
     for name, estimator, features in ct.transformers_:
@@ -84,8 +97,6 @@ def get_ct_feature_names(ct):
             output_features.extend(ct._feature_names_in[features])
                 
     return output_features
-
-
 
 
 pd.DataFrame(transformed_data, 
