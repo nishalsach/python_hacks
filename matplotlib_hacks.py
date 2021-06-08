@@ -18,6 +18,7 @@ ax.legend(custom_lines, ['Cold', 'Medium', 'Hot'])
 # mpl config to make sure grid is always behind the plot
 plt.rcParams['axes.axisbelow'] = True
 
+
 ########## 2. Categorical Variable to Colours ###############
 
 # x, y, and category_values should all be the same length (the # of data points)
@@ -43,3 +44,13 @@ colors = [viridis(float(i)/num_categories) for i in categorical_version]
 plt.scatter(x=df.culmen_length_mm,
             y=df.culmen_depth_mm,
             c=colors)
+
+
+########## 3. Legend Positions ###############
+
+#place legend in top right corner
+plt.legend(bbox_to_anchor=(1,1), loc="upper left")
+#place legend above plot
+plt.legend(bbox_to_anchor=(0, 1, 1, 0), loc="lower left", mode="expand", ncol=2)
+#place legend in top right corner
+plt.legend(bbox_to_anchor=(1,0), loc="lower left")
