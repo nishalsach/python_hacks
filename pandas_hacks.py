@@ -55,3 +55,11 @@ pp = PdfPages("foo.pdf")
 pp.savefig(fig, bbox_inches='tight')
 pp.close()
 
+
+
+############# CATCH SETTING WITH COPY WARNING #############
+
+# Run this, the wrror will now give you line numbers - useful in case of large codebases
+pd.options.mode.chained_assignment = 'raise'
+
+# After finding, set it back to 'warn'

@@ -101,3 +101,46 @@ def get_ct_feature_names(ct):
 
 pd.DataFrame(transformed_data, 
              columns=get_ct_feature_names(combined_pipe))
+
+
+###############################################
+
+# Another cool answer for a slightly different question: How do you get feature names after you do 
+# feature selection as part of your pipeline???
+
+# Pipeline and Model Setup
+from sklearn.pipeline import FeatureUnion, Pipeline
+from sklearn import feature_selection
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.svm import LinearSVC
+import numpy as np
+
+X = ['I am a sentence', 'an example']
+Y = [1, 2]
+X_dev = ['another sentence']
+
+# classifier
+LinearSVC1 = LinearSVC(tol=1e-4,  C = 0.10000000000000001)
+f5 = feature_selection.RFE(estimator=LinearSVC1, n_features_to_select=500, step=1)
+
+pipeline = Pipeline([
+    ('features', FeatureUnion([
+       ('tfidf', TfidfVectorizer(ngram_range=(1, 3), max_features= 4000))])), 
+    ('rfe_feature_selection', f5),
+    ('clf', LinearSVC1),
+    ])
+
+pipeline.fit(X, Y)
+y_pred = pipeline.predict(X_dev)
+
+# With named_steps you can access the attributes and methods of the transform object in the pipeline. 
+# The RFE attribute support_ (or the method get_support()) will return a boolean mask of the selected features:
+
+support = pipeline.named_steps['rfe_feature_selection'].support_
+
+# Now support is an array, you can use that to efficiently extract the name of your selected features (columns).
+# Make sure your feature names are in a numpy array, not a python list.
+
+feature_names = pipeline.named_steps['features'].get_feature_names()
+np.array(feature_names)[support]
+
