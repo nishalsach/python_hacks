@@ -1,9 +1,11 @@
+#############   CHANGE VIEW OPTIONS THROUGHOUT JUPYTER NOTEBOOK #############
+
+pd.set_option("display.max_columns", None)
+    
 #############   CHANGE VIEW OPTIONS FOR GIVEN CELL IN JUPYTER NOTEBOOK #############
 
 with pd.option_context("display.min_rows", 50, "display.max_rows", 100, "display.max_columns", 5, 'display.max_colwidth', -1):
     display(df)
-
-
 
 ############# MODIFY CELL OUTPUT BEHAVIOUR #############
 
